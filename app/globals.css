@@ -43,21 +43,20 @@
 
     --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 98%;
+    --sidebar-background: 176 61% 19%; /* teal-700 (gelap) */
+    --sidebar-foreground: 166 76% 97%; /* teal-50 (terang) */
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    /* Primary Colors for Buttons or Active States */
+    --sidebar-primary: 173 80% 40%; /* teal-500 */
+    --sidebar-primary-foreground: 166 76% 97%; /* teal-50 */
 
-    --sidebar-primary: 240 5.9% 10%;
+    /* Accent Colors for Highlights */
+    --sidebar-accent: 179 84% 10%; /* teal-100 */
+    --sidebar-accent-foreground: 166 76% 97%; /* teal-700 */
 
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Border and Ring */
+    --sidebar-border: 161 94% 30%; /* teal-600 */
+    --sidebar-ring: 173 80% 40%; /* teal-500 */
   }
 
   .dark {
