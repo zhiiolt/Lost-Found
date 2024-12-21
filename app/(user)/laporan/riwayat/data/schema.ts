@@ -8,11 +8,15 @@ import { z } from "zod";
 export const laporanSchema = z.object({
   id: z.string(),
   judul: z.string(),
+  namaBarang: z.string(),
+  deskripsi: z.string(),
   jenis: z.string(),
   status: z.string(),
   kategori: z.string(),
   tanggal: z.string(),
   lokasi: z.string(),
+  ciri: z.string(),
+  foto: z.string(),
 });
 
 export type Laporan = z.infer<typeof laporanSchema>;

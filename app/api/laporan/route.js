@@ -20,6 +20,8 @@ export async function GET(request) {
       judul: faker.hacker
         .phrase()
         .replace(/^./, (letter) => letter.toUpperCase()),
+      namaBarang: faker.commerce.productName(),
+      deskripsi: faker.lorem.paragraph(),
       jenis: faker.helpers.arrayElement(jenisLaporan).value,
       status: faker.helpers.arrayElement(statusLaporan).value,
       kategori: faker.helpers.arrayElement(kategoriLaporan).value,
@@ -28,6 +30,8 @@ export async function GET(request) {
         to: new Date(),
       }),
       lokasi: faker.location.streetAddress(),
+      ciri: faker.lorem.sentence({ max: 25 }),
+      foto: faker.image.url(),
     }));
 
     // Path untuk menyimpan file
