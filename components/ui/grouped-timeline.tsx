@@ -8,11 +8,11 @@ export default function Activity() {
   return (
     <>
       <div className='h-[320px] overflow-y-scroll p-2 mt-2'>
-        <div className='p-5 mb-4 border border-gray-100 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700 max-h-[400px]'>
+        <div className='p-5 mb-4 border border-gray-100 rounded-lg bg-slate-100 dark:bg-gray-800 dark:border-gray-700 max-h-[400px]'>
           <time className='text-xs font-semibold text-gray-900 dark:text-white'>
             January 13th, 2022
           </time>
-          <ol className='mt-3 divide-y divider-gray-200 dark:divide-gray-700'>
+          <ol className='mt-2 divide-y divider-gray-200 dark:divide-gray-700'>
             <li>
               <a
                 href='#'
@@ -90,7 +90,7 @@ export default function Activity() {
             </li>
           </ol>
         </div>
-        <div className='p-5 border border-gray-100 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700'>
+        <div className='p-5 border border-gray-100 rounded-lg bg-slate-100 dark:bg-gray-800 dark:border-gray-700'>
           <time className='text-xs font-semibold text-gray-900 dark:text-white'>
             January 12th, 2022
           </time>

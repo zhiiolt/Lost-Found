@@ -26,6 +26,11 @@ import Link from "next/link";
 import { IconActivity } from "@tabler/icons-react";
 import { IconInfoCircle } from "@tabler/icons-react";
 
+export const metadata = {
+  title: "Lost & Found: Dashboard",
+  description: "A task and issue tracker build using Tanstack Table.",
+};
+
 export default function DashboardPage() {
   const breadcrumbs = [
     { title: "Dashboard" },
