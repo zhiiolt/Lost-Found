@@ -1,7 +1,5 @@
 /** @format */
 
-"use client";
-
 import Image from "next/image";
 import logohijau from "@/assets/logo-hijau.svg";
 import { buttonVariants } from "@/components/ui/button";
@@ -11,6 +9,11 @@ import RegisterForm from "../../../components/forms/RegisterForm";
 import { FlipWords } from "@/components/ui/flip-word";
 import { BackgroundLines } from "@/components/ui/background-line";
 import illustration from "../../../assets/undraw_adventure_re_ncqp (1).svg";
+
+export const metadata = {
+  title: "Lost & Found: Register",
+  description: "Halaman register untuk masuk ke akun Anda.",
+};
 
 export default function RegisterPage() {
   const word = ["mudah", "cepat", "aman"];

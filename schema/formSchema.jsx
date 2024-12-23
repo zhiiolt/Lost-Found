@@ -60,20 +60,17 @@ export const LaporanSchema = z.object({
 });
 
 export const LoginSchema = z.object({
-  username: z
-    .string()
-    .min(1, {
-      message: "Username tidak boleh kosong",
-    })
-    .regex(/^\S+$/, {
-      message: "Username tidak boleh mengandung spasi",
-    }),
-  name: z
+  email: z
     .string({
-      required_error: "Nama tidak boleh kosong",
+      required_error: "Email tidak boleh kosong",
     })
-    .max(100, {
-      message: "Nama terlalu panjang",
+    .email("Email tidak valid"),
+  password: z
+    .string({
+      required_error: "Password tidak boleh kosong",
+    })
+    .min(8, {
+      message: "Password minimal 8 karakter",
     }),
 });
 

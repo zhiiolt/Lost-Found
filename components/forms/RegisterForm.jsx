@@ -4,6 +4,17 @@
 import { Loader2 } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -18,8 +29,15 @@ import { Input } from "@/components/ui/input";
 import { RegisterSchema } from "../../schema/formSchema";
 import Link from "next/link";
 import { IconBrandGoogle } from "@tabler/icons-react";
+import * as React from "react";
+import { IconXboxXFilled } from "@tabler/icons-react";
+import { IconRosetteDiscountCheckFilled } from "@tabler/icons-react";
+import { signIn } from "next-auth/react";
 
 export default function LoginForm() {
+  const [showDialog, setShowDialog] = React.useState(false);
+  const [error, setError] = React.useState(false);
+  const [message, setMessage] = React.useState("");
   const form = useForm({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
@@ -31,8 +49,21 @@ export default function LoginForm() {
     },
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    const res = await fetch("api/auth/register", {
+      method: "POST",
+      body: JSON.stringify(data),
+    }).then((res) => res.json());
+
+    console.log(res);
+    if (res.status) {
+      setShowDialog(true);
+      setError(false);
+    } else {
+      setShowDialog(true);
+      setError(true);
+      setMessage(res.message);
+    }
   };
 
   return (
@@ -171,6 +202,46 @@ export default function LoginForm() {
           </div>
         </form>
       </Form>
+      <AlertDialog
+        open={showDialog}
+        onOpenChange={(isOpen) => setShowDialog(isOpen)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className='text-center font-bold'>
+              {error ? "Registrasi Gagal" : "Registrasi Berhasil"}
+            </AlertDialogTitle>
+            <AlertDialogDescription className='text-center pb-4 flex flex-col gap-2'>
+              {error ? (
+                <IconXboxXFilled className='text-red-600 mx-auto' size={100} />
+              ) : (
+                <IconRosetteDiscountCheckFilled
+                  className='text-teal-600 mx-auto'
+                  size={100}
+                />
+              )}
+
+              <span>
+                {error
+                  ? message
+                  : "Registrasi berhasil, silahkan login untuk melanjutkan."}
+              </span>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            {error && (
+              <AlertDialogCancel className='w-full'>Tutup</AlertDialogCancel>
+            )}
+
+            {!error && (
+              <Button
+                className='w-full bg-teal-600 hover:bg-teal-700'
+                onClick={() => signIn()}>
+                Login
+              </Button>
+            )}
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

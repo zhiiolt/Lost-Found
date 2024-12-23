@@ -14,13 +14,30 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import * as React from "react";
 import { Input } from "@/components/ui/input";
 import { LoginSchema } from "../../schema/formSchema";
 import Link from "next/link";
 import Google from "@/assets/google.svg";
 import { IconBrandGoogle } from "@tabler/icons-react";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { IconXboxXFilled } from "@tabler/icons-react";
 
-export default function LoginForm() {
+export default function LoginForm({ url }) {
+  const [showDialog, setShowDialog] = React.useState(false);
+  const { push } = useRouter();
   const form = useForm({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -30,8 +47,22 @@ export default function LoginForm() {
   });
 
   const onSubmit = async (data) => {
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-    console.log(data);
+    try {
+      const res = await signIn("credentials", {
+        redirect: false,
+        email: data.email,
+        password: data.password,
+        callbackUrl: url,
+      });
+
+      if (!res.error) {
+        push(url);
+      } else {
+        setShowDialog(true);
+      }
+    } catch (error) {
+      setShowDialog(true);
+    }
   };
 
   return (
@@ -92,6 +123,7 @@ export default function LoginForm() {
           <div className='space-y-4'>
             <Button
               type='submit'
+              onClick={() => console.log(form.formState.errors)}
               className='w-full mt-4 disabled:cursor-not-allowed'
               disabled={form.formState.isSubmitting}>
               {form.formState.isSubmitting && (
@@ -111,6 +143,25 @@ export default function LoginForm() {
           </div>
         </form>
       </Form>
+      <AlertDialog
+        open={showDialog}
+        onOpenChange={(isOpen) => setShowDialog(isOpen)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className='text-center font-bold'>
+              Login Gagal
+            </AlertDialogTitle>
+            <AlertDialogDescription className='text-center pb-4 flex flex-col gap-2'>
+              <IconXboxXFilled className='text-red-600 mx-auto' size={100} />
+
+              <span>Email atau password salah.</span>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel className='w-full'>Tutup</AlertDialogCancel>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

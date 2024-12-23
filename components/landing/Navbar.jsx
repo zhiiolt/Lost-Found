@@ -1,8 +1,10 @@
 /** @format */
+"use client";
 import Image from "next/image";
 import logo from "../../assets/logo.svg";
 import Menubar from "../../assets/menubar.svg";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
 
 export default function Navbar() {
   return (
@@ -22,11 +24,12 @@ export default function Navbar() {
             <Link href='/'>Features</Link>
             <Link href='#reviews'>Reviews</Link>
             <div className='inline-flex gap-4'>
-              <Link href='/login'>
-                <button className='bg-teal-700 text-white px-4 py-2 rounded-full font-medium hover:bg-teal-800 focus:ring-4 focus:ring-teal-200'>
-                  Login
-                </button>
-              </Link>
+              <button
+                onClick={() => signIn()}
+                className='bg-teal-700 text-white px-4 py-2 rounded-full font-medium hover:bg-teal-800 focus:ring-4 focus:ring-teal-200'>
+                Login
+              </button>
+
               <Link href='/register'>
                 <button className='border border-solid border-teal-700 px-4 py-2 rounded-full text-teal-700 font-medium hover:bg-slate-200 focus:ring-4 focus:ring-teal-200'>
                   Register

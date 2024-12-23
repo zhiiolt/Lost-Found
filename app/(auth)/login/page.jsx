@@ -1,7 +1,5 @@
 /** @format */
 
-"use client";
-
 import Image from "next/image";
 import logohijau from "@/assets/logo-hijau.svg";
 import { buttonVariants } from "@/components/ui/button";
@@ -12,7 +10,13 @@ import { FlipWords } from "@/components/ui/flip-word";
 import { BackgroundLines } from "@/components/ui/background-line";
 import illustration from "../../../assets/undraw_adventure_re_ncqp (1).svg";
 
-export default function LoginPage() {
+export const metadata = {
+  title: "Lost & Found: Login",
+  description: "Halaman login untuk masuk ke akun Anda.",
+};
+
+export default function LoginPage({ searchParams }) {
+  const url = searchParams.callbackUrl;
   const word = ["mudah", "cepat", "aman"];
 
   return (
@@ -45,7 +49,7 @@ export default function LoginPage() {
           <p className='text-slate-500 py-2 text-sm md:text-base'>
             Inputkan email dan password untuk masuk ke akun Anda.
           </p>
-          <LoginForm />
+          <LoginForm url={url} />
         </div>
       </div>
       <div className='hidden bg-teal-950 rounded-tl-3xl rounded-bl-3xl lg:col-span-4 col-end-8 relative py-12 lg:flex lg:flex-col lg:justify-between'>
